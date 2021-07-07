@@ -1,0 +1,26 @@
+h1{
+    text-align: center;
+    border: rgb(224, 0, 0);
+}
+
+#categorias{
+    text-align: center;
+    display: flex;
+    align-items:stretch; 
+    justify-content: center;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+#iniciosesion{
+    border: lightseagreen;
+    background-color: rgba(81, 94, 134, 0.418);
+    margin-left: 0px;
+    margin-right: 8px;
+    padding: 10px;
+}
+
+#carrusel{
+    margin-right: 0px;
+    padding-right: 0px;
+}
