@@ -48,3 +48,12 @@ class Trabajo(models.Model):
     def __str__(self):
         return self.nombreTrabajo
 
+class Contacto(models.Model):
+    nombre = models.CharField(max_length=50)
+    correo = models.EmailField()
+    modelo_vehiculo = models.CharField(max_length=50)
+    asunto = models.CharField()
+    mensaje = models.TextField()
+    
+    def __str__(self):
+        return self.asunto
