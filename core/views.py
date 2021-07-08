@@ -1,13 +1,24 @@
 from django.shortcuts import render, redirect
 from django.http import request
+from .models import Mecanico, Trabajo
 
 # Create your views here.
 
 def Index(request):
-    return render(request,'core/Index.html')
+    mecanicos = Mecanico.objects.all()
+    trabajos = Trabajo.objects.all()
+    datos = {
+        'listaMecanicos': mecanicos,
+        'listaTrabajos': trabajos
+        }
+    return render(request,'core/Index.html', datos)
 
 def galeria(request):
-    return render(request, 'core/galeria.html')
+    trabajos = Trabajo.objects.all()
+    datos = {
+        'listaTrabajos': trabajos
+    }
+    return render(request, 'core/galeria.html', datos)
 
 def profesionales(request):
     return render(request, 'core/profesionales.html')

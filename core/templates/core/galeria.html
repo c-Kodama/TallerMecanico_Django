@@ -9,10 +9,11 @@
     <title>Document</title>
 </head>
 <body>
+  {% load static %}
   <!--Barra de navegación-->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="{% url 'Index' %}">
-      <img id="logo" src="/Imagenes/logo.jpg" width="70" height="70">
+      <img id="logo" src="{% static 'core/img/logo.jpg' %}" width="70" height="70">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#barraNavegacion" aria-controls="barraNavegacion" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -37,10 +38,32 @@
       </div>
       <form class="d-flex" id="busqueda">
         <input class="form-control" type="search" placeholder="Buscar..." aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0 m-2" type="submit"><img src="/Imagenes/Icon feather-search.png" width="25" height="25"></button>
+        <button class="btn btn-outline-success my-2 my-sm-0 m-2" type="submit"><img src="{% static 'core/img/lupa.png' %}" width="25" height="25"></button>
       </form>
+      <a href="{% url 'login' %}">
+        <img id="user" src="{% static 'core/img/usuario.png' %}" width="50" height="50">
+      </a>
     </div>
   </nav>
+
+  <div class="row">
+    <!--Galeria con fotos y descripcion de los trabajos-->
+
+      {% for t in listaTrabajos%}
+      <div class="col-6 ">
+        <img src="{% static t.foto %}" class="img-fluid w-100 p-2" alt="foto del trabajo realizado">
+      </div>
+      <div class="col-6 ">
+        <div class="container">
+          <h2>{{t.nombreTrabajo}}</h2>
+          <p>{{t.descripcion}}</p>
+          <p>Categoría: {{t.categoria}}</p>
+          <p>Trabajo realizado por {{t.mecanico}}</p>
+        </div>
+      </div>
+      {% endfor %}
+
+  </div>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>

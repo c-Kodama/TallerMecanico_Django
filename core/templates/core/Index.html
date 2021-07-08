@@ -4,15 +4,15 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="estilos.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <title>Taller mecanico</title>
 </head>
 <body>
+  {% load static %}
   <!--Barra de navegación-->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="{% url 'Index' %}">
-      <img id="logo" src="/Imagenes/logo.jpg" width="70" height="70">
+      <img id="logo" src="{% static 'core/img/logo.jpg' %}" width="70" height="70">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#barraNavegacion" aria-controls="barraNavegacion" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -37,15 +37,18 @@
       </div>
       <form class="d-flex" id="busqueda">
         <input class="form-control" type="search" placeholder="Buscar..." aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0 m-2" type="submit"><img src="/Imagenes/Icon feather-search.png" width="25" height="25"></button>
+        <button class="btn btn-outline-success my-2 my-sm-0 m-2" type="submit"><img src="{% static 'core/img/lupa.png' %}" width="25" height="25"></button>
       </form>
+      <a href="{% url 'login' %}">
+        <img id="user" src="{% static 'core/img/usuario.png' %}" width="50" height="50">
+      </a>
     </div>
   </nav>
 
-    
+  
   <div class="row">
     <!-- Carusel -->
-    <div class="col-sm-8" id="carrusel">
+    <div class="col" id="carrusel">
       <div id="container" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
           <li data-target="#container" data-slide-to="0" class="active"></li>
@@ -55,29 +58,29 @@
         <div class="carousel-inner" role="listbox">
           <div class="carousel-item active">
             <a class="text-decoration-none" href="{% url 'galeria' %}">
-              <img class="d-block img-fluid" src="/Imagenes/slide1.jpg" alt="First slide">
+              <img class="d-block w-100 h-50" src="{% static 'core/img/slide1.jpg' %}" alt="First slide">
             </a>
             <div class="carousel-caption d-none d-md-block">
-              <a class="text-decoration-none" href="{% url 'galeria' %}"><h5>Cajas de cambio</h5></a>
+              <a class="text-decoration-none" href="{% url 'galeria' %}"><h5>Cambio de aceite</h5></a>
               <p>Aquí tenemos a nuestro mecanico realizando una revision de aceite</p>
             </div>
           </div>
           <div class="carousel-item">
             <a class="text-decoration-none" href="{% url 'galeria' %}">
-             <img class="d-block img-fluid " src="/Imagenes/slide5.jpg" alt="Second slide">
+             <img class="d-block w-100 h-50 " src="{% static 'core/img/slide6.jpg' %}" alt="Second slide">
             </a>
             <div class="carousel-caption d-none d-md-block">
-              <a class="text-decoration-none" href="{% url 'galeria' %}"><h5>Revision tubo de escape</h5></a>
-              <p>Aquí vemos a nuestro mecanico revisando el sistema de escape del vehiculo</p>
+              <a class="text-decoration-none" href="{% url 'galeria' %}"><h5>Electronica</h5></a>
+              <p>Camila programa algo electrónico</p>
             </div>
           </div>
           <div class="carousel-item">
             <a class="text-decoration-none" href="{% url 'galeria' %}">
-              <img class="d-block img-fluid" src="/Imagenes/slide3.jpg" alt="Third slide">
+              <img class="d-block w-100 h-50" src="{% static 'core/img/slide5.jpg' %}" alt="Third slide">
             </a>
             <div class="carousel-caption d-none d-md-block">
-              <a class="text-decoration-none" href="{% url 'galeria' %}"><h5>Revision de motor</h5></a>
-              <p>Aquí podemos ver a nuestro mecanico realizando una revision de motor</p>
+              <a class="text-decoration-none" href="{% url 'galeria' %}"><h5>Suspension y direccion</h5></a>
+              <p>Aquí podemos ver a nuestro mecanico revisando la suspensión y direcciónr</p>
             </div>
           </div>
         </div>
@@ -91,119 +94,25 @@
         </a>
       </div>
     </div>
-
-    <!--Inicio de sesión-->
-    <div class="col">
-      <div class="row" id="iniciosesion">
-        <div class="col-sm-3">
-          <img src="/Imagenes/usuario.png" width="100" height="100" style="align-items: center"/>
-        </div>
-        <div class="col-sm-8">
-          <form >
-            <div class="form-group">
-              <label for="correo">Email </label>
-              <input type="email" class="form-control" id="correo" aria-describedby="emailHelp" placeholder="abc@hola.com">
-            </div>
-            <div class="form-group">
-              <label for="contraseña">Contraseña</label>
-              <input type="password" class="form-control" id="contraseña" placeholder="******">
-            </div>
-            <br>
-            <button type="submit" class="btn btn-dark">Ingresar</button>
-            <a href='login' class="btn btn-light">Registrarse</a>
-          </form>
-        </div>
-      </div>
-      <br>
-
-      <!--Previsualización trabajadores-->
-      <div class="row">
-        <a class="text-decoration-none" href="/profesionales.html"><h2>Profesionales</h2></a>
-      </div>
-      <div class="row">
-        <div class="accordion" id="acordion">
-          <div class="container-fluid">
-            <div id="headingOne">
-              <h2 class="mb-0">
-                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                  Juanita
-                </button>
-              </h2>
-            </div>
-            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#acordion">
-              <div class="card" style="width: 16rem;">
-                <img src="/Imagenes/mecanico2.jpg" class="card-img-top" alt="imagen de junita">
-                <div  class="card-body">
-                  <h5 class="card-title">Juanita</h5>
-                  <p class="card-text">La mejor a la hora de realizar una revision de motor</p>
-                  <a href="#" class="btn btn-dark">Agenda tu atencion</a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-
-          <div class="container-fluid">
-            <div id="heading2">
-              <h2 class="mb-0">
-                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
-                  Claudia
-                </button>
-              </h2>
-            </div>
-            <div id="collapse2" class="collapse show" aria-labelledby="heading2" data-parent="#acordion">
-              <div class="card" style="width: 16rem;">
-                <img src="/Imagenes/PHOTO-2020-03-06-17-57-04-e1583532526413-712x600.jpg" class="card-img-top" alt="imagen de junita">
-                <div  class="card-body">
-                  <h5 class="card-title">Claudia</h5>
-                  <p class="card-text">Es la indicada para ver los Electronica</p>
-                  <a href="#" class="btn btn-dark">Agenda tu atencion</a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-
-          <div class="container-fluid">
-            <div id="heading3">
-              <h2 class="mb-0">
-                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
-                  Baby
-                </button>
-              </h2>
-            </div>
-            <div id="collapse3" class="collapse show" aria-labelledby="heading3" data-parent="#acordion">
-              <div class="card" id="heading3"style="width: 16rem;">
-                <img src="/Imagenes/transmision.jpg" class="card-img-top" alt="imagen de junita">
-                <div  class="card-body">
-                  <h5 class="card-title">Baby</h5>
-                  <p class="card-text">Es la especializada para realizar un Cajas de cambio</p>
-                  <a href="#" class="btn btn-dark">Agenda tu atencion</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          
-          
-
-          
-          
-
-          
-
-          
-
-          
-          
-        </div>
-      </div>
-
-    </div>
-        
-
-        
   </div>
+
+  <br>
+
+  <div class="row">
+      <!--Previsualización trabajadores-->
+      {% for i in listaMecanicos%}
+      <div class="card" style="width: 18rem;" >
+        <img src="{% static i.fotoPerfil %}" class="card-img-top" >
+        <div  class="card-body">
+          <h5 class="card-title">{{i.nombreMecanico}}</h5>
+          <p class="card-text">{{i.especialidad}}</p>
+          <a href="#" class="btn btn-dark">Ver sus trabajos</a>
+        </div>
+      </div>
+      {% endfor %}
+  </div>
+  
+  <br>
   
   <footer class="bg-dark text-white my-0 mx-0 pt-4 pb-2 main-footer">
     <div class="container">
