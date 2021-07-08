@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -95,63 +96,87 @@
       </div>
     </div>
   </div>
-
+<<<<<<< Updated upstream
   <br>
+--------------------------------------------------------------------------
+<div class="col">
+      <div class="row" id="iniciosesion">
+        <div class="col-sm-3">
+          <img src="{% static '/core/img/usuario.png'%}" width="100" height="100" style="align-items: center"/>
+        </div>
+        <div class="col-sm-8">
+          <form >
+            <div class="form-group">
+              <label for="correo">Email </label>
+              <input type="email" class="form-control" id="correo" aria-describedby="emailHelp" placeholder="abc@hola.com">
+            </div>
+            <div class="form-group">
+              <label for="contraseña">Contraseña</label>
+              <input type="password" class="form-control" id="contraseña" placeholder="******">
+            </div>
+            <br>
+            <button type="submit" class="btn btn-dark">Ingresar</button>
+            <a href='login' class="btn btn-light">Registrarse</a>
+          </form>
+        </div>
+      </div>
+      <br>
 
+---------------------------------------------------------------------------
   <div class="row">
-    <!--Previsualización trabajadores-->
-    {% for i in listaMecanicos%}
-    <div class="card" style="width: 18rem;" >
-      <img src="{% static i.fotoPerfil %}" class="card-img-top" >
-      <div  class="card-body">
-        <h5 class="card-title">{{i.nombreMecanico}}</h5>
-        <p class="card-text">{{i.especialidad}}</p>
-        <a href="#" class="btn btn-dark">Ver sus trabajos</a>
+      <!--Previsualización trabajadores-->
+      {% for i in listaMecanicos%}
+      <div class="card" style="width: 18rem;" >
+        <img src="{% static i.fotoPerfil %}" class="card-img-top" >
+        <div  class="card-body">
+          <h5 class="card-title">{{i.nombreMecanico}}</h5>
+          <p class="card-text">{{i.especialidad}}</p>
+          <a href="#" class="btn btn-dark">Ver sus trabajos</a>
+        </div>
       </div>
-    </div>
-    {% endfor %}
-</div>
-
-<br>
-
-<footer class="bg-dark text-white my-0 mx-0 pt-4 pb-2 main-footer">
-  <div class="container">
-    <div class="row">
-      <div class="col-md" style="text-align: center"></div>
-      <div class="col-md">
-        <h6 class="text-uppercase text-warning">Sobre Nosotros</h6>
-        <ul class="mb-0 pb-2 foot-list">
-          <li class="">
-            <a class="" href="{% url 'formularioContacto' %}">Contacto</a>
-          </li>
-          <li class="">
-            <a class="" href="#">Nuestra vision</a>
-          </li>
-        </ul>
-      </div>
-      <div class="col-md">
-        <h6 class="text-uppercase text-warning">Obtener Ayuda</h6>
-        <ul class="mb-0 pb-2 foot-list">
-          <li class="">
-            <a class="" href="#">Como llegar</a>
-          </li>
-          <li class="">
-            <a class="" href="#">Formas de pago</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <hr class="footer-hr my-2 py-0" />
-    <div class="row">
-      <div class="col-4 text-left">
-        <i class="fab fa-twitter mx-1 text-info"></i>
-        <i class="fab fa-facebook-f mx-1 text-info"></i>
-        <i class="fab fa-instagram mx-1 text-info"></i>
-        <i class="fab fa-whatsapp mx-1 text-info"></i>
-      </div>
-      <div class="col-8 text-right copyright font-weight-light">
-        <div>Todos los derechos reservados.</div>
-      </div>
-    </div>
+      {% endfor %}
   </div>
-</footer>
+  
+  <br>
+  
+  <footer class="bg-dark text-white my-0 mx-0 pt-4 pb-2 main-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md" style="text-align: center"></div>
+        <div class="col-md">
+          <h6 class="text-uppercase text-warning">Sobre Nosotros</h6>
+          <ul class="mb-0 pb-2 foot-list">
+            <li class="">
+              <a class="" href="/formularioContacto.html">Contacto</a>
+            </li>
+            <li class="">
+              <a class="" href="#">Nuestra vision</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-md">
+          <h6 class="text-uppercase text-warning">Obtener Ayuda</h6>
+          <ul class="mb-0 pb-2 foot-list">
+            <li class="">
+              <a class="" href="#">Como llegar</a>
+            </li>
+            <li class="">
+              <a class="" href="#">Formas de pago</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <hr class="footer-hr my-2 py-0" />
+      <div class="row">
+        <div class="col-4 text-left">
+          <i class="fab fa-twitter mx-1 text-info"></i>
+          <i class="fab fa-facebook-f mx-1 text-info"></i>
+          <i class="fab fa-instagram mx-1 text-info"></i>
+          <i class="fab fa-whatsapp mx-1 text-info"></i>
+        </div>
+        <div class="col-8 text-right copyright font-weight-light">
+          <div>Todos los derechos reservados.</div>
+        </div>
+      </div>
+    </div>
+  </footer>

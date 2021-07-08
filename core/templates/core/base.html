@@ -1,0 +1,187 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    {% load static %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    {% block css %}
+    {% endblock %}
+    <link rel="stylesheet" href="{% static 'core/css/estilos.css' %}"/>
+
+
+    <title>Taller mecanico</title>
+</head>
+<body>
+
+    <div id="contenido">
+
+     {% block contenido %}
+     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="{% url 'Index' %}">
+        <img id="logo" src="{% static 'core/img/logo.jpg' %}" width="70" height="70">
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#barraNavegacion" aria-controls="barraNavegacion" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      
+      <div class="collapse navbar-collapse" id="barraNavegacion">
+        <div class="navbar-nav">
+          <a class="nav-item nav-link active" href="{% url 'Index' %}">Inicio</a>
+          <a class="nav-item nav-link" href="{% url 'galeria' %}">Galería</a>
+          <a class="nav-item nav-link" href="{% url 'profesionales' %}">Profesionales</a>
+          <a class="nav-item nav-link" href="{% url 'formularioContacto' %}">Contacto</a>
+          <div class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="{% url 'galeria' %}" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Categorías
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="#">Cajas de cambio</a>
+              <a class="dropdown-item" href="#">Electronica</a>
+              <a class="dropdown-item" href="#">Suspensión y dirección</a>
+            </div>
+          </div>
+        </div>
+        <form class="d-flex" id="busqueda">
+          <input class="form-control" type="search" placeholder="Buscar..." aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0 m-2" type="submit"><img src="{% static 'core/img/lupa.png' %}" width="25" height="25"></button>
+        </form>
+        <a href="{% url 'login' %}">
+          <img id="user" src="{% static 'core/img/usuario.png' %}" width="50" height="50">
+        {% if user.is_authenticated %}
+        <li>
+          <a href="{% url 'logout' %}">Cerrar Sesion</a>
+        </li>
+        <li>
+          <a href="#">{{ user.username }}</a>
+        </li>
+         {% else %}
+         <li>
+           <a href="{% url 'login' %}">Iniciar Sesion</a>
+         </li>
+         <li>
+            <a href="{% url 'registro' %}">registrarse</a>
+         </li>
+         {% endif %}
+        </a>
+      </div>
+    </nav>
+  
+    
+    <div class="row">
+      <!-- Carusel -->
+      <div class="col" id="carrusel">
+        <div id="container" class="carousel slide" data-ride="carousel">
+          <ol class="carousel-indicators">
+            <li data-target="#container" data-slide-to="0" class="active"></li>
+            <li data-target="#container" data-slide-to="1"></li>
+            <li data-target="#container" data-slide-to="2"></li>
+          </ol>
+          <div class="carousel-inner" role="listbox">
+            <div class="carousel-item active">
+              <a class="text-decoration-none" href="{% url 'galeria' %}">
+                <img class="d-block w-100 h-50" src="{% static 'core/img/slide1.jpg' %}" alt="First slide">
+              </a>
+              <div class="carousel-caption d-none d-md-block">
+                <a class="text-decoration-none" href="{% url 'galeria' %}"><h5>Cambio de aceite</h5></a>
+                <p>Aquí tenemos a nuestro mecanico realizando una revision de aceite</p>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <a class="text-decoration-none" href="{% url 'galeria' %}">
+               <img class="d-block w-100 h-50 " src="{% static 'core/img/slide6.jpg' %}" alt="Second slide">
+              </a>
+              <div class="carousel-caption d-none d-md-block">
+                <a class="text-decoration-none" href="{% url 'galeria' %}"><h5>Electronica</h5></a>
+                <p>Camila programa algo electrónico</p>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <a class="text-decoration-none" href="{% url 'galeria' %}">
+                <img class="d-block w-100 h-50" src="{% static 'core/img/slide5.jpg' %}" alt="Third slide">
+              </a>
+              <div class="carousel-caption d-none d-md-block">
+                <a class="text-decoration-none" href="{% url 'galeria' %}"><h5>Suspension y direccion</h5></a>
+                <p>Aquí podemos ver a nuestro mecanico revisando la suspensión y direcciónr</p>
+              </div>
+            </div>
+          </div>
+          <a class="carousel-control-prev" href="#container" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only"></span>
+          </a>
+          <a class="carousel-control-next" href="#container" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only"></span>
+          </a>
+        </div>
+      </div>
+    </div>
+    
+  <div class="row">
+    <!--Previsualización trabajadores-->
+    {% for i in listaMecanicos%}
+    <div class="card" style="width: 18rem;" >
+      <img src="{% static i.fotoPerfil %}" class="card-img-top" >
+      <div  class="card-body">
+        <h5 class="card-title">{{i.nombreMecanico}}</h5>
+        <p class="card-text">{{i.especialidad}}</p>
+        <a href="#" class="btn btn-dark">Ver sus trabajos</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+     {% endblock %}
+
+    </div>
+  
+  <footer class="bg-dark text-white my-0 mx-0 pt-4 pb-2 main-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md" style="text-align: center"></div>
+        <div class="col-md">
+          <h6 class="text-uppercase text-warning">Sobre Nosotros</h6>
+          <ul class="mb-0 pb-2 foot-list">
+            <li class="">
+              <a class="" href="/formularioContacto.html">Contacto</a>
+            </li>
+            <li class="">
+              <a class="" href="#">Nuestra vision</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-md">
+          <h6 class="text-uppercase text-warning">Obtener Ayuda</h6>
+          <ul class="mb-0 pb-2 foot-list">
+            <li class="">
+              <a class="" href="#">Como llegar</a>
+            </li>
+            <li class="">
+              <a class="" href="#">Formas de pago</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <hr class="footer-hr my-2 py-0" />
+      <div class="row">
+        <div class="col-4 text-left">
+          <i class="fab fa-twitter mx-1 text-info"></i>
+          <i class="fab fa-facebook-f mx-1 text-info"></i>
+          <i class="fab fa-instagram mx-1 text-info"></i>
+          <i class="fab fa-whatsapp mx-1 text-info"></i>
+        </div>
+        <div class="col-8 text-right copyright font-weight-light">
+          <div>Todos los derechos reservados.</div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</body>
+</html>

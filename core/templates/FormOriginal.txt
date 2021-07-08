@@ -10,7 +10,6 @@
 </head>
 <body>
   {% load static %}
-  {% load crispy_form_tags %}
   <!--Barra de navegación-->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="{% url 'Index' %}">
@@ -59,22 +58,32 @@
     </div>
     
     <div class="col p-2">
-      <form method="POST" action="" class="row g-3">
-        
-        {% csrf_token %}
-       
-        {{ form | crispy }}
-        <hr>
-        <br>
-        <div class="d-flex justify-content-end">
-          <input type="submit" class="btn btn-primary" id="enviar" value="enviar">
-          &nbsp;
-          <input type="reset" class="btn btn-secondary" id="limpiar" value="limpiar">
-  
+      <form method="POST" action="" id="formulario" class="row g-3">
+        <div class="col-md-11 pl-1 pr-1">
+          <label for="nombre" class="form-label">Nombre</label>
+          <input type="text" class="form-control" id="nombre">
         </div>
-        
+        <div class="col-md-11 pl-1 pr-1">
+          <label for="email" class="form-label">Correo electrónico</label>
+          <input type="email" class="form-control" id="email">
+        </div>
+        <div class="col-md-11 pl-1 pr-1">
+          <label for="modelo" class="form-label">Modelo Vehículo</label>
+          <input type="text" class="form-control" id="modelo">
+        </div>
+        <div class="col-md-11 pl-1 pr-1">
+          <label for="asunto" class="form-label">Asunto</label>
+          <input type="text" class="form-control" id="asunto">
+        </div>
+        <div class="col-md-11 pl-1 pr-1">
+          <label for="mensaje" class="form-label">Mensaje</label>
+          <input type="textarea" class="form-control" id="mensaje">
+        </div>
       </form>
-      {{mensaje }}
+      <br>
+
+      <input type="submit" class="btn btn-primary" id="enviar" value="enviar">
+      <input type="reset" class="btn btn-secondary" id="limpiar" value="limpiar">
 
     </div>
   </div>
