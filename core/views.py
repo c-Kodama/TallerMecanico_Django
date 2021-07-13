@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import request
 from .models import Mecanico, Trabajo
-from .forms import ContactoForm, CustomCreationForm
+from .forms import ContactoForm, CustomCreationForm, publicarForm
 from django.contrib.auth import authenticate, login
 # Create your views here.
 
@@ -29,16 +29,16 @@ def profesionales(request):
 
 def contacto(request):
     data = {
-        'form': ContactoForm{}
+        'form': ContactoForm()
 
     }
     if request.method == 'POST':
-        formluario=ContactoForm(data=request.POST)
+        formulario=ContactoForm(data=request.POST)
         if formulario.is_valid():
             formulario.save()
             data["mensaje"] = "Contacto guardado"
         else:
-            daata["form"] = formulario
+            data["form"] = formulario
 
     return render(request, 'core/formulariocontacto.html', data)
 
@@ -52,23 +52,44 @@ def MecanicoTrabajos(request):
     return render(request, 'core/mecanicTrabajos.html')
 
 def PublicarTrabajo(request):
-    return render(request, 'core/form_publicar')
+    datos = { 
+        'form': publicarForm() 
+        }
+    if request.method == 'POST':
+        formulario = publicarForm(request.POST)
+        if formulario.is_valid:
+            formulario.save()
+            datos['mensaje'] = "¡Publicado!"   
+        else:
+            datos['form'] = formulario 
+    return render(request, 'core/form_publicar.html', datos)
 
+def modificarTrabajo(request):
+    trabajo = Trabajo.objects.get(nombreTrabajo=id)
+    datos = {
+        'form': publicarForm(instance=trabajo)
+    }
+    if request.method == 'POST':
+        formulario = publicarForm(data=request.POST, instance=trabajo)
+        if formulario.is_valid:
+            formulario.save()
+            datos['mensaje'] = "Editado correctamente"
+    return render(request, 'core/mod_publicacion.html')
     
 def registro(request):
-    data=(
+    data={
         'form': CustomCreationForm()
-    )
+    }
     
-if request.method == 'POST':
-    formulario = CustomUserCreationForm(data=request.POST)
-    if formulario.is_valid():
-        formulario.save()
-        user = authenticate(username=formulario.cleaned_data["username"], password=formluario.cleaned_data["password1"])
-        login(request, user)
-        messages.succes(request,"Te haz registrado correctamente")
-        #redirigir al index
-        return redirect(to="Index")
-    data["form"] = formulario
+    if request.method == 'POST':
+        formulario = CustomUserCreationForm(data=request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            user = authenticate(username=formulario.cleaned_data["username"], password=formluario.cleaned_data["password1"])
+            login(request, user)
+            messages.succes(request,"Te haz registrado correctamente")
+            #redirigir al index
+            return redirect(to="Index")
+        data["form"] = formulario
 
-    return render(request,'registrarion/registro.html', data)
+    return render(request,'registration/registro.html', data)

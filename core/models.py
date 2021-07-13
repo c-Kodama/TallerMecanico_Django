@@ -18,31 +18,25 @@ class Usuario(models.Model):
     def __str__(self):
         return self.email
 
-class Categoria(models.Model):
-    id_categoria = models.IntegerField(primary_key=True, verbose_name="id categoria de trabajos")
-    categoria = models.CharField(max_length=60, verbose_name="categoria de trabajos")
-
-    def __str__(self):
-        return self.categoria
-
 class Mecanico(models.Model):
     idMecanico = models.IntegerField(primary_key=True, verbose_name="id de Mecanico")
     nombreMecanico = models.CharField(max_length=60, verbose_name="nombre del mecanico")
-    especialidad = models.ForeignKey(Categoria, on_delete=models.CASCADE)
+    especialidad = models.CharField(max_length=50, verbose_name="Especialidad del mecanico")
     fotoPerfil = models.CharField(max_length=100, verbose_name="foto del mecanico")
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.nombreMecanico
 
-
-
 class Trabajo(models.Model):
     idTrabajo = models.IntegerField(primary_key=True, verbose_name="id de Trabajo")
     nombreTrabajo = models.CharField(max_length=30, verbose_name="nombre de trabajo")
-    foto = models.CharField(max_length=100, verbose_name="fotografia del trabajo")
+    marca = models.CharField(max_length=30, default="marca", verbose_name="Marca del auto")
+    modelo = models.CharField(max_length=30, default="modelo", verbose_name="Modelo del auto")
+    fecha = models.DateField()
+    categoria = models.CharField(max_length=50, verbose_name="Categoria del trabajo")
     descripcion = models.CharField(max_length=250, verbose_name="descripcion del trabajo")
-    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
+    foto = models.CharField(max_length=100, verbose_name="fotografia del trabajo")
     mecanico = models.ForeignKey(Mecanico, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -52,7 +46,7 @@ class Contacto(models.Model):
     nombre = models.CharField(max_length=50)
     correo = models.EmailField()
     modelo_vehiculo = models.CharField(max_length=50)
-    asunto = models.CharField()
+    asunto = models.CharField(max_length=60)
     mensaje = models.TextField()
     
     def __str__(self):

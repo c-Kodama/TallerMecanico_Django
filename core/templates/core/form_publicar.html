@@ -1,11 +1,12 @@
-{% load staticfiles %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  {% load static %}
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/mecanicxs/estilos_mecanico.css" />
+    <link rel="stylesheet" href="{% static 'core/css/estilos_mecanico.css' %}" />
     <link href='https://fonts.googleapis.com/css?family=Roboto:500,900,100,300,700,400' rel='stylesheet' type='text/css'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     
@@ -49,13 +50,19 @@
               })
             })
           })
+
+          var urlFormatted = `${urlModelos}${marcaSeleccionada}`;
+          console.log(urlFormatted);
+          var newurlModelos = `https://vpic.nhtsa.dot.gov/api/vehicles/getmodelsformake/${marcaSeleccionada}?format=json`
+          
           $("#modelo").focus(function(){
-            $.get(urlModelos, function(data){
+            console.log(newurlModelos)
+            $.get(newurlModelos, function(data){
               //Agregar modelos al selector de modelo
               $.each(data.Results, function(i, elemento){
                 $("#modelo").append('<option name=>'+elemento.Model_Name+'</option>')
               })
-              console.log(marcaSeleccionada)
+            
             })
           })
 
@@ -67,7 +74,7 @@
 
 </head>
 <body>
-  {% load static %}
+
   <!--Barra de navegación-->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="{% url 'Index' %}">
@@ -108,97 +115,25 @@
         <!--Barra de navegación de usuarios registrados-->
         <nav id="sidebar" class="nav nav-tabs flex-column bg-light position-fixed h-100 p-1">
           <div class="navbar-nav">
-            <a class="nav-item nav-link text-dark shadow p-3 m-2 mt-6 rounded" href="{% url 'mecanicTrabajos' %}">Trabajos</a>
-            <a class="nav-item nav-link text-dark shadow p-3 m-2 bg-secondary active rounded" href="{% url 'form_publicar' %}">Publicar</a>
-            <a class="nav-item nav-link text-dark shadow p-3 m-2 rounded" href="{% url 'mecanic' %}">Volver</a>
+            <a class="nav-item nav-link text-dark shadow p-3 m-2 mt-6 rounded" href="{% url 'MecanicoTrabajos' %}">Trabajos</a>
+            <a class="nav-item nav-link text-dark shadow p-3 m-2 bg-secondary active rounded" href="{% url 'PublicarTrabajo' %}">Publicar</a>
+            <a class="nav-item nav-link text-dark shadow p-3 m-2 rounded" href="{% url 'MecanicoIndex' %}">Volver</a>
           </div>   
         </nav>
       </div>
       
       <div class="col-md-10">
+        
         <!--Formulario para publicar-->
-        <br>
-        <form>
-          <div class="row form-group">
-            <div class="col-md-6 ">
-              <div class="row">
-                <!--Input para marca-->
-                <div class="col-sm-6 form-group">
-                  <label for="marca" class="form-label">Marca</label>
-                  <select class="form-select" aria-label="marca" id="marca" >
-                    <option selected id="opcionSeleccionada"></option>
-                  </select>
-                </div>
-                <!--Input para modelo-->
-                <div class="col-sm-6 form-group">
-                  <label for="modelo" class="form-label">Modelo</label>
-                  <select class="form-select" aria-label="modelo" id="modelo" >
-                    
-                  </select>
-                </div>
-              </div>
+        <form method="POST" action="" id="formulario">
+          {% csrf_token %}
+          {{form}}
 
-              <div class="row p-1">
-                <!--Fecha-->
-                <div class="col-sm-5 form-group">
-                  <label for="example-date-input" class="form-label">Date</label>
-                  <input class="form-control" type="date" value="2011-08-19" id="example-date-input">
-                </div>
-                <!--Categoria-->
-                <div class="col-sm-7 form-group">
-                  <label for="categoria" class="form-label">Categoría</label>
-                  <select class="form-select" aria-label="categoria">
-                    <option selected></option>
-                    <option value="1">Cajas de Cambio</option>
-                    <option value="2">Electrónica</option>
-                    <option value="3">Suspensión y dirección</option>
-                    <option value="4">Mantenciones</option>
-                  </select>
-                </div>
-              </div>
-  
-              <!--Diagnostico-->
-              <div class="row p-1">
-                <div class="col-sm-12 form-group">
-                  <label for="diagnostico" class="form-label">Diagnostico</label>
-                  <textarea class="form-control" id="diagnostico" rows="3">Breve descripción del diágnostico</textarea>
-                </div>
-              </div>
-  
-              <!--Materiales usados-->
-              <div class="row p-1">
-                <div class="col-sm-12 form-group">
-                  <label for="materiales" class="form-label">Materiales Usados</label>
-                  <select class="form-select" aria-label="materiales">
-                    <option selected></option>
-                    <option value="1">Cajas de Cambio</option>
-                    <option value="2">Electrónica</option>
-                  </select>
-                </div>
-              </div>
-  
-              <!--Subir imágenes-->
-              <div class="row p-1">
-                <div class="col-sm-12 mb-3">
-                  <label for="subirArchivos" class="form-label">Subir imágenes</label>
-                  <input class="form-control" type="file" id="subirArchivos" multiple>
-                </div>
-              </div>
-            </div>
-
-            <div class="col">
-              <img id="imagenPrevia" class="img-fluidr" />
-              
-              <!--Submit-->
-              
-              <div class="d-grid pt-1 d-md-flex justify-content-md-end">
-                <input type="submit" class="btn btn-dark" value="Publicar" id="enviar">
-              </div>
-              
-            </div>
-          </div>
-
+          <input type="submit" class="btn btn-dark" value="Publicar" id="enviar">
         </form>
+
+        {{mensaje}}
+        
       </div>
 
 
