@@ -51,6 +51,7 @@ def MecanicoIndex(request):
 def MecanicoTrabajos(request):
     return render(request, 'core/mecanicTrabajos.html')
 
+#Guardar datos de publicación de trabajo
 def PublicarTrabajo(request):
     datos = { 
         'form': publicarForm() 
@@ -64,7 +65,8 @@ def PublicarTrabajo(request):
             datos['form'] = formulario 
     return render(request, 'core/form_publicar.html', datos)
 
-def modificarTrabajo(request):
+#Modificar datos de la publicación de trabajo
+def modificarTrabajo(request, id):
     trabajo = Trabajo.objects.get(nombreTrabajo=id)
     datos = {
         'form': publicarForm(instance=trabajo)
@@ -75,6 +77,13 @@ def modificarTrabajo(request):
             formulario.save()
             datos['mensaje'] = "Editado correctamente"
     return render(request, 'core/mod_publicacion.html')
+
+#eliminar publicación
+def borrarPublicación(request, id):
+    trabajo = Trabajo.objects.get(nombreTrabajo = id)
+    trabajo.delete()
+
+    return redirect(to="home")
     
 def registro(request):
     data={
